@@ -33,7 +33,7 @@ $(document)
 
     $.ajax({
         type: 'POST',
-        url: 'ajax/register.php',
+        url: (_form.hasClass('js-login') ? 'ajax/login.php' : 'ajax/register.php'), //ternary! :)
         data: dataObj,
         dataType: 'json',
         async: true,
@@ -43,8 +43,10 @@ $(document)
         console.log(data);
         if(data.redirect !== undefined){
            //window.location = data.redirect; 
+        }else if(data.error !== undefined){ //or data.isLoggedIn === true, but we have enough info with error
+            _error.text(data.error)
+            .show();
         }
-        alert(data.name);
     })
     .fail(function ajaxFailed(e){
         // This failed
