@@ -5,9 +5,7 @@ define('__CONFIG__', true);
 // Require the config
 require_once "inc/config.php";
 
-require('inc/db_credentials.php');
-require('inc/classes/SimpleCRUD.class.php');
-$myInstance = new SimpleCRUD($host, $user, $passwd, $dbname);
+forceDashboard();
 
 ?>
 
