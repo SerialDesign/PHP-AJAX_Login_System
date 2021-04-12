@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //$email = strtolower($email); - better in SQL Statement with LOWER() = faster 
 
     // Make sure the user does not exist
-    $user_found = findUser($con, $email);
+    $user_found = User::Find($email);
 
     if($user_found){
         // User exists

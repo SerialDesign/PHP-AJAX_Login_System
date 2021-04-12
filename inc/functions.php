@@ -22,28 +22,4 @@ function forceDashboard(){
     }
 }
 
-function findUser($con, $email, $return_assoc = false){
-    // Make sure the user does not exist
-    $email = (string) FILTER::String( $email );
-
-    $findUser = $con->prepare("SELECT user_id, password FROM USER WHERE email = LOWER(:email) LIMIT 1");
-    $findUser->bindParam(':email', $email, PDO::PARAM_STR);
-    $findUser->execute();
-
-    // if return assoc variable is set to true it returns the whole assoc array
-    if($return_assoc){
-        return $findUser->fetch(PDO::FETCH_ASSOC);
-    }
-
-    $user_found = (boolean) $findUser->rowCount(); //1 in boolean is true and 0 in boolean is false
-    return $user_found;
-
-    /* OR, easier to understand but more code version
-    if($findUser->rowCount() == 1){
-        return true;
-    }
-
-    return false; */
-}
-
 ?>

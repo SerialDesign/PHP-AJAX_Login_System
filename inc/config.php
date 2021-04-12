@@ -20,6 +20,8 @@ ini_set('display_errors', 'On');
 // Include the DB php files
 include_once "classes/db.class.php";
 include_once "classes/Filter.class.php";
+include_once "classes/Page.class.php";
+include_once "classes/User.class.php";
 include_once "functions.php";
 
 $con = DB::getConnection();
