@@ -37,15 +37,22 @@ $(document)
         data: dataObj,
         dataType: 'json',
         async: true,
+        /* possible to catch/check statuscode to send more information via the http headers - with using a function 
+        statusCode: {
+            403: function(){
+                alert('Not allowed');
+            }
+        } */
     })
     .done(function ajaxDone(data) {
         //whatever data is
         console.log(data);
         if(data.redirect !== undefined){
-           //window.location = data.redirect; 
+           window.location = data.redirect; 
         }else if(data.error !== undefined){ //or data.isLoggedIn === true, but we have enough info with error
-            _error.text(data.error)
-            .show();
+            _error
+                .html(data.error) //text(data.error) 
+                .show();
         }
     })
     .fail(function ajaxFailed(e){

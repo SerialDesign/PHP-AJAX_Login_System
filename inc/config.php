@@ -7,6 +7,11 @@ if(!defined('__CONFIG__')){
     // TODO: redirect here for Productin deploy
 }
 
+// Sessions are always turned on
+if(!isset($_SESSION)){
+    session_start();
+}
+
 // Our config is below
 // Allow errors
 error_reporting(-1);
