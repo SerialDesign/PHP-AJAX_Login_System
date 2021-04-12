@@ -7,6 +7,21 @@ require_once "inc/config.php";
 
 forceLogin();
 
+$user_id = $_SESSION['user_id'];
+
+$getUserInfo = $con->prepare("SELECT email, reg_time FROM user WHERE user_id = :user_id LIMIT 1");
+$getUserInfo->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$getUserInfo->execute();
+
+if($getUserInfo->rowCount() == 1){
+    // User was found
+    $User = $getUserInfo->fetch(PDO::FETCH_ASSOC);
+
+}else{
+    // User is not signed in -> maybe the user was deleted in the meantime, doublechecks if the user is still in the db and not only in the session
+    header("Location: logout.php"); exit;
+}
+
 //echo $_SESSION['user_id'] . ' is your user id';
 
 ?>
@@ -25,7 +40,11 @@ forceLogin();
 <body>
     
     <div class="uk-section uk-container">
-        Dashboard. You are signed in as user: <?=$_SESSION['user_id']?>
+        <h2>Dashboard</h2>
+        <p>Hello <?php echo $User['email']; ?>, you registered at <?php echo $User['reg_time']; ?></p>
+        <p>
+            <a href="logout.php">Logout</a>
+        </p>
     </div>
 
 

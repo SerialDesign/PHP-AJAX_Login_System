@@ -18,11 +18,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //$email = strtolower($email); - better in SQL Statement with LOWER() = faster 
 
     // Make sure the user does not exist
-    $findUser = $con->prepare("SELECT user_id FROM USER WHERE email = LOWER(:email) LIMIT 1");
-    $findUser->bindParam(':email', $email, PDO::PARAM_STR);
-    $findUser->execute();
+    $user_found = findUser($con, $email);
 
-    if($findUser->rowCount() == 1){
+    if($user_found){
         // User exists
         // We can also check to see if they are able to log in
         $return['error'] = "You already have an account";
@@ -41,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['user_id'] = (int) $user_id;
 
         // Return the proper information back to JavaScript to redirect us
-        $return['redirect'] = '/dashboard.php?message=welcome'; 
+        $return['redirect'] = 'dashboard.php?message=welcome'; 
         $return['isLoggedIn'] = true;
     }
 

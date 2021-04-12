@@ -17,7 +17,6 @@ if(!isset($_SESSION)){
 error_reporting(-1);
 ini_set('display_errors', 'On');
 
-
 // Include the DB php files
 include_once "classes/db.class.php";
 include_once "classes/Filter.class.php";
